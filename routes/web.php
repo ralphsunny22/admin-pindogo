@@ -1,5 +1,6 @@
 <?php
 
+namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', [LandingController::class, 'landing'])->name('landing');
+
+//users
+Route::group(['prefix' => 'user'], function(){
+    Route::get('/all', [UsersController::class, 'allUsers'])->name('allUsers');
+    Route::get('/{userId}', [UsersController::class, 'singleUser'])->name('singleUser');
 });
+
