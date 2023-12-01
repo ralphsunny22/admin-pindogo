@@ -92,11 +92,11 @@ class UsersController extends Controller
 
         if ($request->has('picture')) {
             $picture_image_name = Helpers::upload('users/', 'png', $request->file('picture'));
-            $user->picture = $picture_image_name;
+            $user->picture = 'users/'.$picture_image_name;
         }
         if ($request->has('cover_picture')) {
             $cover_image_name = Helpers::upload('images/users/covers/', 'png', $request->file('cover_picture'));
-            $user->cover_picture = $cover_image_name;
+            $user->cover_picture = 'images/users/covers/'.$cover_image_name;
         }
 
         $user = (array) $user;

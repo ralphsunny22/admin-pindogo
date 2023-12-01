@@ -37,7 +37,8 @@
 .cover-img {
     position: relative;
     height: 200px; /* Set the desired height */
-    background-image: url({!! 'https://f8.codester.dev/storage/'.$user->cover_picture !!});
+    /* background-image: url({!! 'https://f8.codester.dev/storage/'.$user->cover_picture !!}); */
+    background-image: url({{ asset('/storage/'.$user->cover_picture) }});
     margin-top: -80px;
 }
 .cover-default {
@@ -81,11 +82,16 @@
                                 <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0);" class="text-white">Edit Profile</a></li>
                                 @if (isset($user->name) || isset($user->picture) || !isset($user->picture))
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    <a href="javascript:void(0);" class="text-white" style="margin-right: 5px">{{ $user?->name }}</a>
+                                    <a href="{{ route('singleUser', $user->id) }}" class="text-white" style="margin-right: 5px">{{ $user?->name }}</a>
             
                                     @if (isset($user->picture))
-                                    <a href="{{ route('singleUser', $user->id) }}" class="breadcrumb-img-wrapper" style="border-radius: 5px">
-                                        <img src="{!! 'https://f8.codester.dev/storage/'.$user->picture !!}" class="" alt="person-image">
+                                    <a href="{{ asset('/storage/'.$user->picture) }}"
+                                        data-caption="{{ isset($user->name) ? $user->name : 'No Caption' }}"
+                                        data-fancybox 
+                                        class="breadcrumb-img-wrapper" style="border-radius: 5px"
+                                    >
+                                        {{-- <img src="{!! 'https://f8.codester.dev/storage/'.$user->picture !!}" class="" alt="person-image"> --}}
+                                        <img src="{{ asset('/storage/'.$user->picture) }}" class="" alt="person-image">
                                     </a>
                                     @else
                                     <a href="{{ route('singleUser', $user->id) }}" class="breadcrumb-img-wrapper text-white" style="border-radius: 5px">
@@ -94,6 +100,8 @@
                                     @endif
                                 </li> 
                                 @endif
+
+                                
                                 
                             </ol><!-- End breadcrumb -->
             
@@ -118,20 +126,20 @@
                                         </ul>
                                     </div>
             
-                                    <a href="{{ route('singleUser', $user->id) }}" class="btn bg-dark-transparent text-dark btn-sm each-item" data-bs-toggle="tooltip"
+                                    <a href="{{ route('singleUser', $user->id) }}" class="btn bg-dark text-white btn-sm each-item" data-bs-toggle="tooltip"
                                         title="" data-bs-placement="bottom" data-bs-original-title="View User">
                                         <span>
                                             <i class="fa fa-eye"></i>
                                         </span>
                                     </a>
                                     
-                                    <a href="javascript:void(0);" class="btn bg-warning-transparent text-warning btn-sm each-item" data-bs-toggle="tooltip"
+                                    <a href="javascript:void(0);" class="btn bg-warning text-white btn-sm each-item" data-bs-toggle="tooltip"
                                         title="" data-bs-placement="bottom" data-bs-original-title="Delete Temporarily">
                                         <span>
                                             <i class="fa fa-trash"></i>
                                         </span>
                                     </a>
-                                    <a href="javascript:void(0);" class="btn bg-danger-transparent text-danger btn-sm each-item" data-bs-toggle="tooltip"
+                                    <a href="javascript:void(0);" class="btn bg-danger text-white btn-sm each-item" data-bs-toggle="tooltip"
                                         title="" data-bs-placement="bottom" data-bs-original-title="Delete Permanently">
                                         <span>
                                             <i class="fa fa-trash"></i>

@@ -84,7 +84,11 @@
                     <div class="card overflow-hidden">
                         <div class="card-body">
                             @if (isset($user->cover_picture))
-                                <div class="profile-bg h-250 cover-image" data-bs-image-src="{!! 'https://f8.codester.dev/storage/'.$user->cover_picture !!}"></div>
+                                <div class="profile-bg h-250 cover-image"
+                                    {{-- data-bs-image-src="{!! 'https://f8.codester.dev/storage/'.$user->cover_picture !!}" --}}
+                                    data-bs-image-src="{{ asset('/storage/'.$user->cover_picture) }}"
+                                >
+                                </div>
                             @else
                                 <div class="profile-bg h-250 cover-image profile-cover-picture"></div>
                             @endif
@@ -93,7 +97,11 @@
 
                                 <div class="profile-img">
                                     @if (isset($user->picture))
-                                        <img src="{!! 'https://f8.codester.dev/storage/'.$user->picture !!}" class="avatar avatar-xxl br-7" alt="person-image">  
+                                        <img 
+                                            {{-- src="{!! 'https://f8.codester.dev/storage/'.$user->picture !!}"  --}}
+                                            src="{{ asset('/storage/'.$user->picture) }}" 
+                                            class="avatar avatar-xxl br-7" alt="person-image"
+                                        >  
                                     @else
                                         <i class="fe fe-user" style="font-size: 5em;"></i>
                                     @endif

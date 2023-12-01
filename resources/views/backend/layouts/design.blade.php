@@ -33,6 +33,9 @@
         <!-- APP CSS -->
         <link rel="preload" as="style" href="{{asset('/sparic/build/assets/app-e84fc687.css')}}" />
         <link rel="stylesheet" href="{{asset('/sparic/build/assets/app-e84fc687.css')}}" />
+
+		<!--custom--->
+		<link href="{{asset('/custom/jquery.fancybox.css')}}" rel="stylesheet">
         
 		@yield('extra_css')
 
@@ -451,6 +454,9 @@
         <script type="module" src="{{asset('/sparic/build/assets/switcher-bbf71b35.js')}}"></script>
 
         <!-- END SCRIPTS -->
+
+		<!--custom--->
+		<script src="{{asset('/custom/jquery.fancybox.min.js')}}"></script>
 
 		@yield('extra_js')
 

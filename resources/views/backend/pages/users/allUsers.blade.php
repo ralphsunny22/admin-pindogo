@@ -8,6 +8,9 @@
     text-overflow: ellipsis;
     width: auto; Adjust the width as needed */
 }
+.active-status, .banned-status {
+    width: 3rem;
+}
 
 </style>
 @endsection
@@ -112,10 +115,10 @@
                                                             <span class="fs-12 text-muted">{!! '@'.$user->username !!}</span>
                                                             
                                                             @if (isset($user->email_verified_at) && ($user->status==1))
-                                                                <span class="badge text-white bg-success fw-semibold fs-11">Active</span> 
+                                                                <span class="badge text-white bg-success fw-semibold fs-11 active-status">Active</span> 
                                                             @endif
                                                             @if ($user->status==0)
-                                                                <span class="badge text-white bg-danger fw-semibold fs-11">Banned</span> 
+                                                                <span class="badge text-white bg-danger fw-semibold fs-11 banned-status">Banned</span> 
                                                             @endif
 
                                                         </div>
