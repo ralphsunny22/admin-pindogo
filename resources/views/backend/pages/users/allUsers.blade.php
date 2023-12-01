@@ -145,7 +145,7 @@
                                                             </a>
                                                             <ul class="dropdown-menu dropdown-menu-end" role="menu">
                                                                 <li><a href="{{ route('singleUser', $user->id) }}">View</a></li>
-                                                                <li><a href="javascript:void(0);">Edit</a></li>
+                                                                <li><a href="{{ route('editUser', $user->id) }}">Edit</a></li>
                                                                 <li><a href="javascript:void(0);">Delete</a></li>
                                                             </ul>
                                                         </div>

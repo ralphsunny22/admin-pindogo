@@ -13,7 +13,7 @@ class Helpers
             }
             Storage::disk('public')->putFileAs($dir, $image, $imageName);
         } else {
-            $imageName = 'def.png';
+            $imageName = NULL;
         }
 
         return $imageName;

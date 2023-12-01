@@ -24,5 +24,7 @@ Route::get('/', [LandingController::class, 'landing'])->name('landing');
 Route::group(['prefix' => 'user'], function(){
     Route::get('/all', [UsersController::class, 'allUsers'])->name('allUsers');
     Route::get('/{userId}', [UsersController::class, 'singleUser'])->name('singleUser');
+    Route::get('/edit/{userId}', [UsersController::class, 'editUser'])->name('editUser');
+    Route::post('/edit/{userId}', [UsersController::class, 'editUserPost'])->name('editUserPost');
 });
 

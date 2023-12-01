@@ -3,10 +3,14 @@
 @section('extra_css')
 <style>
 .profile-cover-picture {
-    /* margin: -15px -40px 10px;
-    height: 200px;
-    border-radius: 6px; */
     background: linear-gradient(90deg, rgb(63, 94, 251) 0%, rgb(102, 89, 221) 39%, rgb(118, 87, 209) 56%, rgb(252, 70, 107) 100%);
+}
+
+.each-item-wrapper .each-item {
+    margin-left: 10px; /* Adjust the spacing as needed */
+}
+.each-item-wrapper .each-item:first-child {
+    margin-left: 0;
 }
 
 </style>
@@ -28,26 +32,45 @@
                     <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('allUsers') }}">Users</a></li>
                     <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0);">Profile</a></li>
                 </ol><!-- End breadcrumb -->
+
+                @if ($user->status==1)<div class="mx-3 btn-sm bg-success">Active</div> @endif
+                @if ($user->status==0 && !isset($user->no_of_banned_days))<div class="mx-3 btn-sm bg-warning">Pending</div> @endif
+                @if ($user->status==0 && isset($user->no_of_banned_days))<div class="mx-3 btn-sm bg-danger">Banned</div> @endif
+                
                 <div class="ms-auto">
-                    <div>
-                        <a href="javascript:void(0);" class="btn bg-secondary-transparent text-secondary btn-sm"
-                            data-bs-toggle="tooltip" title="" data-bs-placement="bottom"
-                            data-bs-original-title="Rating">
+                    <div class="d-flex each-item-wrapper">
+
+                        <div class="dropdown each-item">
+                            <button class="btn btn-outline-default btn-sm fw-bold text-primary fs-12 d-flex align-items-center dropdown-toggle"
+                                type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <i class="fe fe-cloud-off fw-semibold mx-1"></i> Ban Options
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="javascript:void(0);">For 24h</a></li>
+                                <li><a class="dropdown-item" href="javascript:void(0);">For 7days</a></li>
+                                <li><a class="dropdown-item" href="javascript:void(0);">For 30days</a></li>
+                                <li><a class="dropdown-item" href="javascript:void(0);">Stop Ban</a></li>
+                            </ul>
+                        </div>
+
+                        <a href="{{ route('editUser', $user->id) }}" class="btn bg-info-transparent text-info btn-sm each-item" data-bs-toggle="tooltip"
+                            title="" data-bs-placement="bottom" data-bs-original-title="Edit User">
                             <span>
-                                <i class="fa fa-star"></i>
+                                <i class="fa fa-file-text"></i>
                             </span>
                         </a>
-                        <a href="lockscreen.html" class="btn bg-primary-transparent text-primary mx-2 btn-sm"
-                            data-bs-toggle="tooltip" title="" data-bs-placement="bottom"
-                            data-bs-original-title="lock">
+
+                        <a href="javascript:void(0);" class="btn bg-warning-transparent text-warning btn-sm each-item" data-bs-toggle="tooltip"
+                            title="" data-bs-placement="bottom" data-bs-original-title="Delete Temporarily">
                             <span>
-                                <i class="fa fa-lock"></i>
+                                <i class="fa fa-trash"></i>
                             </span>
                         </a>
-                        <a href="javascript:void(0);" class="btn bg-warning-transparent text-warning btn-sm" data-bs-toggle="tooltip"
-                            title="" data-bs-placement="bottom" data-bs-original-title="Add New">
+                        <a href="javascript:void(0);" class="btn bg-danger-transparent text-danger btn-sm each-item" data-bs-toggle="tooltip"
+                            title="" data-bs-placement="bottom" data-bs-original-title="Delete Permanently">
                             <span>
-                                <i class="fa fa-plus"></i>
+                                <i class="fa fa-trash"></i>
                             </span>
                         </a>
                     </div>
@@ -79,24 +102,34 @@
                                 <div class="mt-5 d-sm-flex align-items-center">
                                     <div>
                                         <h3 class="fw-semibold mb-1">
-                                            
                                             @if(isset($user->username)){{ $user->name }} @else N/A, @endif
                                             @if(isset($user->username))<span>@</span>{{ $user->username }} @else N/A @endif
                                         </h3>
                                         <p class="mb-0 fw-semibold text-muted-dark">Email : {{ $user->email }}</p>
                                         <p class="mb-0 my-1 fw-semibold text-muted-dark fs-13">{!! $user->city ? $user->city.',' : '' !!} {{ $user?->state }} {{ $user?->country }}</p>
+                                        
+                                        <!---interests--->
+                
+                                        @if (isset($user->interest))
                                         <div class="mb-2">
-                                            <span class="badge badge-light fw-semibold text-dark fs-12 me-2">UX / UI Research</span>
-                                            <span class="badge badge-light fw-semibold text-dark fs-12">Project Management</span>
+                                            @foreach(json_decode($user->interest) as $interest)
+                                                <span class="badge badge-light fw-semibold text-dark fs-12 me-2">{{$interest}}</span>
+                                            @endforeach
                                         </div>
+                                        @endif
+            
+                                        <!--End-interests--->
                                     </div>
                                     <div class="ms-auto">
                                         <div class="d-md-flex">
                                             <div class="d-flex align-items-center me-5 mb-2">
-                                                <span class="avatar avatar-md br-7 bg-gradient-primary"><i class="fe fe-briefcase"></i></span>
+                                                <span class="avatar avatar-md br-7 bg-gradient-primary">
+                                                    <i class="fe fe-corner-up-right"></i>
+                                                    
+                                                </span>
                                                 <div class="ms-2">
-                                                    <p class="mb-0 fw-semibold">Reviews</p>
-                                                    <span class="text-muted">256</span>
+                                                    <p class="mb-0 fw-semibold">Following</p>
+                                                    <span class="text-muted">{{ $followingsCount }}</span>
                                                 </div>
                                             </div>
                                             <div class="d-flex align-items-center me-5 mb-2">
@@ -110,7 +143,7 @@
                                                 <span class="avatar avatar-md br-7 bg-gradient-success"><i class="fe fe-users"></i></span>
                                                 <div class="ms-2">
                                                     <p class="mb-0 fw-semibold">Followers</p>
-                                                    <span class="text-muted">3.2K</span>
+                                                    <span class="text-muted">{{ $followersCount }}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -144,15 +177,9 @@
                                             </div>
                                             <div class="border-top"></div>
                                             <div class="p-4">
-                                                <p class="mb-0 fw-semibold">
-                                                    Hi, my name is Alison Robert.
-                                                </p>
-                                                <p class="mb-0 fw-semibold">
-                                                    I'M the Co-founder and Head of designer at GHM agency.
-                                                </p>
+                                                
                                                 <p class="fw-semibold mb-0">
-                                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse numquam minima porro deserunt ducimus reprehenderit obcaecati, iusto consequuntur accusamus corrupti facere iure necessitatibus tempore velit?
-                                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatibus sit, non rerum eum, doloribus laborum aspernatur id quam deleniti molestiae possimus assumenda impedit quae ipsa quis nulla error sequi architecto!
+                                                    {{ isset($user->about) ? $user->about : 'No content at the moment' }}
                                                 </p>
                                             </div>
                                             <div class="border-top"></div>
