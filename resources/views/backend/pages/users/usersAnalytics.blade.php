@@ -317,7 +317,7 @@
         });
 
         var maxUserCount = Math.max(...userCounts); // Get the maximum user count
-        var maxYAxis = Math.ceil(maxUserCount / 20) * 10; // Round up to the nearest 10
+        var maxYAxis = Math.ceil(maxUserCount / 10) * 10; // Round up to the nearest 10
         console.log('maxUserCount: ',maxUserCount);
         console.log('maxYAxis: ',maxYAxis);
 
