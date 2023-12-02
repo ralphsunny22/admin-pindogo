@@ -44,7 +44,7 @@
 	<body class="app sidebar-mini ltr">
 
         <!-- SWITCHER -->
-        <div class="switcher-wrapper">
+        <div class="switcher-wrapper d-none">
 			<div class="demo_changer">
 				<div class="form_holder sidebar-right1">
 					<div class="row">
@@ -457,6 +457,7 @@
 
 		<!--custom--->
 		<script src="{{asset('/custom/jquery.fancybox.min.js')}}"></script>
+		<script src="{{asset('/custom/chart2.min.js')}}"></script>
 
 		@yield('extra_js')
 

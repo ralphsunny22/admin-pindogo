@@ -2,9 +2,9 @@
     <div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
     <div class="app-sidebar">
         <div class="side-header">
-            <a class="header-brand1" href="https://laravelui.spruko.com/sparic/index">
+            <a class="header-brand1" href="/">
                 <img src="/sparic/build/assets/images/brand/logo.png" class="header-brand-img main-logo" alt="Sparic logo">
-                <img src="/sparic/build/assets/images/brand/logo-light.png" class="header-brand-img darklogo" alt="Sparic logo">
+                <img src="/sparic/build/assets/images/brand/logo.png" class="header-brand-img darklogo" alt="Sparic logo">
                 <img src="/sparic/build/assets/images/brand/icon.png" class="header-brand-img icon-logo" alt="Sparic logo">
                 <img src="/sparic/build/assets/images/brand/icon2.png" class="header-brand-img icon-logo2" alt="Sparic logo">
             </a>
@@ -397,8 +397,9 @@
                                     <div class="tab-pane active" id="side5">
                                         <ul class="sidemenu-list">
                                             <li><a href="{{route('allUsers') }}" class="slide-item"> All Users</a></li>
-                                            <li><a href="https://laravelui.spruko.com/sparic/calendar" class="slide-item"> Active Users</a></li>
-                                            <li><a href="https://laravelui.spruko.com/sparic/calendar2" class="slide-item"> Banned Users</a></li>
+                                            <li><a href="/" class="slide-item"> Active Users</a></li>
+                                            <li><a href="/" class="slide-item"> Banned Users</a></li>
+                                            <li><a href="{{ route('usersAnalytics') }}" class="slide-item"> Analytics</a></li>
                                             
                                         </ul>
                                         <div class="resp-tab-content-active">

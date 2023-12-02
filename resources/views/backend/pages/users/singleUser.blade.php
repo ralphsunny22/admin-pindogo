@@ -1,3 +1,6 @@
+@php
+    use App\Helpers\Helpers;
+@endphp
 @extends('backend.layouts.design')
 @section('title')Profile: {{$user->name}} @endsection
 @section('extra_css')
@@ -34,8 +37,23 @@
                 </ol><!-- End breadcrumb -->
 
                 @if ($user->status==1)<div class="mx-3 btn-sm bg-success">Active</div> @endif
-                @if ($user->status==0 && !isset($user->no_of_banned_days))<div class="mx-3 btn-sm bg-warning">Pending</div> @endif
-                @if ($user->status==0 && isset($user->no_of_banned_days))<div class="mx-3 btn-sm bg-danger">Banned</div> @endif
+                @if ($user->status==0 && !isset($user->no_of_banned_days))
+                    <div class="mx-3 btn-sm bg-warning">
+                        Pending
+                    </div>
+                    <a href="{{ route('activateUser', $user->id) }}" onclick="return confirm('Are you sure you want to reactivate this user?')"
+                        class="btn bg-success text-white btn-sm each-item" data-bs-toggle="tooltip"
+                        title="" data-bs-placement="bottom" data-bs-original-title="Reactivate This User">
+                        <span>
+                            Reactivate User
+                        </span>
+                    </a> 
+                @endif
+                @if ($user->status==0 && isset($user->no_of_banned_days))
+                    <div class="mx-3 btn-sm bg-danger">
+                        Banned for {{ $user->no_of_banned_days }} day(s) [{{ Helpers::formatDate($user->ban_start) }} - {{ Helpers::formatDate($user->ban_end) }}]
+                    </div>
+                @endif
                 
                 <div class="ms-auto">
                     <div class="d-flex each-item-wrapper">
@@ -47,10 +65,30 @@
                                 <i class="fe fe-cloud-off fw-semibold mx-1"></i> Ban Options
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="javascript:void(0);">For 24h</a></li>
-                                <li><a class="dropdown-item" href="javascript:void(0);">For 7days</a></li>
-                                <li><a class="dropdown-item" href="javascript:void(0);">For 30days</a></li>
-                                <li><a class="dropdown-item" href="javascript:void(0);">Stop Ban</a></li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('banUser',['userId'=>$user->id, 'days'=>'1']) }}" 
+                                        onclick="return confirm('Are you sure you want to ban this user for 24 hours?')">
+                                        For 24h
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('banUser',['userId'=>$user->id, 'days'=>'7']) }}" 
+                                        onclick="return confirm('Are you sure you want to ban this user for 7 days?')">
+                                        For 7 days
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('banUser',['userId'=>$user->id, 'days'=>'30']) }}" 
+                                        onclick="return confirm('Are you sure you want to ban this user for 30 days?')">
+                                        For 30 days
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('stopBan',$user->id) }}" 
+                                        onclick="return confirm('Are you sure you want to stop this ban?')">
+                                        Stop Ban
+                                    </a>
+                                </li>
                             </ul>
                         </div>
 
@@ -61,13 +99,16 @@
                             </span>
                         </a>
 
-                        <a href="javascript:void(0);" class="btn bg-warning-transparent text-warning btn-sm each-item" data-bs-toggle="tooltip"
+                        <a href="{{ route('softDelete', $user->id) }}" onclick="return confirm('Are you sure you want temporarily delete this user?')"
+                            class="btn bg-warning-transparent text-warning btn-sm each-item" data-bs-toggle="tooltip"
                             title="" data-bs-placement="bottom" data-bs-original-title="Delete Temporarily">
                             <span>
                                 <i class="fa fa-trash"></i>
                             </span>
                         </a>
-                        <a href="javascript:void(0);" class="btn bg-danger-transparent text-danger btn-sm each-item" data-bs-toggle="tooltip"
+                        <a href="{{ route('forceDelete', $user->id) }}" 
+                            onclick="return confirm('Are you sure you want permanently delete this user?')"
+                            class="btn bg-danger-transparent text-danger btn-sm each-item" data-bs-toggle="tooltip"
                             title="" data-bs-placement="bottom" data-bs-original-title="Delete Permanently">
                             <span>
                                 <i class="fa fa-trash"></i>

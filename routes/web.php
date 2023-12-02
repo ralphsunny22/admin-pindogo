@@ -26,5 +26,12 @@ Route::group(['prefix' => 'user'], function(){
     Route::get('/{userId}', [UsersController::class, 'singleUser'])->name('singleUser');
     Route::get('/edit/{userId}', [UsersController::class, 'editUser'])->name('editUser');
     Route::post('/edit/{userId}', [UsersController::class, 'editUserPost'])->name('editUserPost');
+    Route::get('/{userId}/ban/{days}', [UsersController::class, 'banUser'])->name('banUser');
+    Route::get('/{userId}/stop-ban', [UsersController::class, 'stopBan'])->name('stopBan');
+    Route::get('/{userId}/delete', [UsersController::class, 'softDelete'])->name('softDelete');
+    Route::get('/{userId}/destroy', [UsersController::class, 'forceDelete'])->name('forceDelete');
+    Route::get('/{userId}/activate', [UsersController::class, 'activateUser'])->name('activateUser');
 });
+
+Route::get('/user-analytics', [UsersController::class, 'usersAnalytics'])->name('usersAnalytics');
 

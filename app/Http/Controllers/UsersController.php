@@ -111,24 +111,125 @@ class UsersController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function banUser($userId, $days)
     {
-        //
+        $user = DB::table('users')->where('id', $userId)->first();
+        if (!isset($user)) {
+            abort(404);
+        }
+
+        // Get current date (yyyy-mm-dd format)
+        $currentDate = date('Y-m-d');
+
+        // Calculate ban_end as current date plus $days
+        $ban_start = $currentDate;
+        $ban_end = date('Y-m-d', strtotime("+$days days", strtotime($currentDate)));
+
+        // Update user with ban_start and ban_end dates
+        DB::table('users')
+            ->where('id', $userId)
+            ->update([
+                'status' => 0,
+                'no_of_banned_days' => $days,
+                'ban_start' => $ban_start,
+                'ban_end' => $ban_end,
+            ]);
+
+        return back();
     }
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function stopBan($userId)
     {
-        //
+        $user = DB::table('users')->where('id', $userId)->first();
+        if (!isset($user)) {
+            abort(404);
+        }
+
+        // Update user with ban_start and ban_end dates
+        DB::table('users')
+            ->where('id', $userId)
+            ->update([
+                'status' => 1,
+                'no_of_banned_days' => NULL,
+            ]);
+
+        return back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function softDelete($userId)
     {
-        //
+        $user = DB::table('users')->where('id', $userId)->first();
+        if (!isset($user)) {
+            abort(404);
+        }
+
+        DB::table('users')
+            ->where('id', $userId)
+            ->update([
+                'status' => 0,
+                'no_of_banned_days' => NULL,
+            ]);
+        return back();
+    }
+
+    public function activateUser($userId)
+    {
+        $user = DB::table('users')->where('id', $userId)->first();
+        if (!isset($user)) {
+            abort(404);
+        }
+
+        DB::table('users')
+            ->where('id', $userId)
+            ->update([
+                'status' => 1,
+                'no_of_banned_days' => NULL,
+            ]);
+        return back();
+    }
+
+    //permanent delete
+    public function forceDelete($userId)
+    {
+        $user = DB::table('users')->where('id', $userId)->first();
+        if (!isset($user)) {
+            abort(404);
+        }
+
+        DB::table('stories')->where('user_id', $userId)->delete(); //stories
+        DB::table('posts')->where('user_id', $userId)->delete(); //posts
+        DB::table('saved_posts')->where('user_id', $userId)->delete(); //saved_posts
+        DB::table('saved_reels')->where('user_id', $userId)->delete(); //saved_reels
+        DB::table('reels')->where('user_id', $userId)->delete(); //reels
+        DB::table('chat_users')->where('user_id', $userId)->delete(); //chat_users
+        DB::table('group_chat_users')->where('user_id', $userId)->delete(); //group_chat_users
+        DB::table('groups')->where('user_id', $userId)->delete(); //groups
+
+        Helpers::removeFile('users/', $user->picture);
+        Helpers::removeFile('images/users/covers/', $user->cover_picture);
+
+        DB::table('users')->where('id', $userId)->delete();
+
+        //return back()->with('success', 'User Deleted Successfully');
+        return redirect()->route('allUsers')->with('success', 'User Deleted Successfully');
+    }
+
+    public function usersAnalytics()
+    {
+        $malesCount = DB::table('users')->where('gender_id', '1')->count();
+        $femalesCount = DB::table('users')->where('gender_id', '2')->count();
+
+        $activeCount = DB::table('users')->where('status', 1)->count();
+        $pendingCount = DB::table('users')->where('status', 0)->count();
+        $bannedCount = DB::table('users')->whereNotNull('no_of_banned_days')->count();
+
+        return view('backend.pages.users.usersAnalytics', compact('malesCount', 'femalesCount', 'activeCount', 'pendingCount', 'bannedCount'));
     }
 }

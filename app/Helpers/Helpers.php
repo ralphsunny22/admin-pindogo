@@ -31,6 +31,13 @@ class Helpers
         return $imageName;
     }
 
+    public static function removeFile(string $dir, $old_image)
+    {
+        if (Storage::disk('public')->exists($dir . $old_image)) {
+            Storage::disk('public')->delete($dir . $old_image);
+        } 
+    }
+
     public static function shortenNumber($num, $digits = 1) {
         $num = preg_replace('/[^0-9]/','',$num);
         if ($num >= 1000000000) {
@@ -47,4 +54,10 @@ class Helpers
         }
         return $num;
     }
+
+    public static function formatDate($date)
+    {
+        return date('M jS', strtotime($date));
+    }
+
 }

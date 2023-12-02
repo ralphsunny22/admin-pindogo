@@ -4,11 +4,9 @@
             <a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-bs-toggle="sidebar"
                 href="javascript:void(0)"></a>
             <!-- sidebar-toggle-->
-            <a class="logo-horizontal" href="https://laravelui.spruko.com/sparic/index">
-                <img src="/sparic/build/assets/images/brand/logo.png" class="header-brand-img main-logo"
-                    alt="Sparic logo">
-                <img src="/sparic/build/assets/images/brand/logo-light.png" class="header-brand-img darklogo"
-                    alt="Sparic logo">
+            <a class="logo-horizontal" href="/">
+                <img src="/sparic/build/assets/images/brand/logo.png" class="header-brand-img main-logo" alt="Sparic logo">
+                <img src="/sparic/build/assets/images/brand/logo.png" class="header-brand-img darklogo" alt="Sparic logo">
             </a>
             <!-- LOGO -->
             <div class="main-header-center ms-3 d-none d-lg-block">
@@ -398,7 +396,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="demo-icon nav-link icon">
+                <div class="demo-icon nav-link icon d-none">
                     <i class="fe fe-settings fa-spin text_primary"></i>
                 </div>
             </div>

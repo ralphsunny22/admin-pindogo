@@ -61,7 +61,11 @@
             <!-- END PAGE HEADER -->
 
             <!-- ROW -->
-            
+            @if(Session::has('success'))
+            <div class="alert alert-success mb-3 text-center">
+                {{Session::get('success')}}
+            </div>
+            @endif
             <!-- END ROW -->
 
             <!-- ROW -->
@@ -149,7 +153,13 @@
                                                             <ul class="dropdown-menu dropdown-menu-end" role="menu">
                                                                 <li><a href="{{ route('singleUser', $user->id) }}">View</a></li>
                                                                 <li><a href="{{ route('editUser', $user->id) }}">Edit</a></li>
-                                                                <li><a href="javascript:void(0);">Delete</a></li>
+                                                                <li>
+                                                                    <a href="{{ route('forceDelete', $user->id) }}" 
+                                                                        onclick="return confirm('Are you sure you want permanently delete this user?')"
+                                                                    >
+                                                                        Delete
+                                                                    </a>
+                                                                </li>
                                                             </ul>
                                                         </div>
                                                     </div>
