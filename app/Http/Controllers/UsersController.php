@@ -223,13 +223,82 @@ class UsersController extends Controller
 
     public function usersAnalytics()
     {
+        //gender-chart
         $malesCount = DB::table('users')->where('gender_id', '1')->count();
         $femalesCount = DB::table('users')->where('gender_id', '2')->count();
 
+        $webUsersCount = DB::table('users')->where('platform', 'web')->count();
+        $mobileUsersCount = DB::table('users')->where('platform', 'mobile')->count();
+
+        //status-chart
         $activeCount = DB::table('users')->where('status', 1)->count();
         $pendingCount = DB::table('users')->where('status', 0)->count();
         $bannedCount = DB::table('users')->whereNotNull('no_of_banned_days')->count();
 
-        return view('backend.pages.users.usersAnalytics', compact('malesCount', 'femalesCount', 'activeCount', 'pendingCount', 'bannedCount'));
+        $userCountsByCountry = $this->usersByCountry();
+        $monthlyCounts = $this->userRegistrationsByMonth();
+        $yearlyCounts = $this->userRegistrationsByYear();
+
+
+        return view('backend.pages.users.usersAnalytics', compact('malesCount', 'femalesCount', 'webUsersCount', 'mobileUsersCount', 'activeCount', 'pendingCount', 'bannedCount', 
+        'userCountsByCountry', 'monthlyCounts', 'yearlyCounts'));
     }
+
+    public function usersByCountry()
+    {
+        // Fetch user counts by country
+        $userCountsByCountry = DB::table('users')
+            ->select('country', DB::raw('COUNT(*) as user_count'))
+            ->groupBy('country')
+            ->orderBy('user_count', 'DESC')
+            ->get();
+
+        return $userCountsByCountry;
+    }
+
+
+    public function userRegistrationsByMonth()
+    {
+        // Fetch user registration counts for each month of the year
+        $yearlyData = DB::table('users')
+            ->select(DB::raw('MONTH(created_at) as month'), DB::raw('COUNT(*) as count'))
+            ->whereYear('created_at', now()->year)
+            ->groupBy(DB::raw('MONTH(created_at)'))
+            ->pluck('count', 'month');
+
+        // Initialize an array to hold user counts for each month (initially set to zero)
+        $monthlyCounts = array_fill(1, 12, 0);
+
+        // Replace zero counts with actual counts if available
+        foreach ($yearlyData as $month => $count) {
+            $monthlyCounts[$month] = $count;
+        }
+
+        return $monthlyCounts;
+    }
+
+    public function userRegistrationsByYear()
+    {
+        // Fetch the earliest and latest registration years from the users table
+        $earliestYear = DB::table('users')->min(DB::raw('YEAR(created_at)'));
+        $latestYear = DB::table('users')->max(DB::raw('YEAR(created_at)'));
+
+        // Fetch user registration counts for each year in the range
+        $yearlyData = DB::table('users')
+            ->select(DB::raw('YEAR(created_at) as year'), DB::raw('COUNT(*) as count'))
+            ->whereBetween(DB::raw('YEAR(created_at)'), [$earliestYear, $latestYear])
+            ->groupBy(DB::raw('YEAR(created_at)'))
+            ->pluck('count', 'year');
+
+        // Initialize an array to hold user counts for each year (initially set to zero)
+        $yearlyCounts = [];
+
+        // Loop through the range of years and replace zero counts with actual counts if available
+        for ($year = $earliestYear; $year <= $latestYear; $year++) {
+            $yearlyCounts[$year] = $yearlyData[$year] ?? 0;
+        }
+
+        return $yearlyCounts;
+    }
+
 }

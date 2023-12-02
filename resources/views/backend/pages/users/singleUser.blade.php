@@ -5,6 +5,9 @@
 @section('title')Profile: {{$user->name}} @endsection
 @section('extra_css')
 <style>
+.app-content {
+    margin-block-start: 0 !important;
+}
 .profile-cover-picture {
     background: linear-gradient(90deg, rgb(63, 94, 251) 0%, rgb(102, 89, 221) 39%, rgb(118, 87, 209) 56%, rgb(252, 70, 107) 100%);
 }

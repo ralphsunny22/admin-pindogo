@@ -2,11 +2,8 @@
 @section('title')All Users @endsection
 @section('extra_css')
 <style>
-.profile-details {
-    /* white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: auto; Adjust the width as needed */
+.app-content {
+    margin-block-start: 0 !important;
 }
 .active-status, .banned-status {
     width: 3rem;
