@@ -73,11 +73,12 @@
                                     <span class="light-layout mt-1"><i class="ri-sun-line"></i></span>
                                 </a>
                             </div>
+
                             <!-- Theme-Layout -->
-                            <div class="dropdown d-flex shopping-cart">
+                            <div class="dropdown d-flex shopping-cart" style="display: none !important;">
                                 <a class="nav-link icon text-center" data-bs-toggle="dropdown">
                                     <i class="ri-shopping-bag-line"></i><span
-                                        class="badge bg-secondary header-badge">4</span>
+                                        class="badge bg-secondary header-badge">411</span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                     <div class="drop-heading border-bottom">
@@ -184,6 +185,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <!-- CART -->
                             <div class="dropdown d-flex">
                                 <a class="nav-link icon full-screen-link" id="fullscreen-button">
@@ -360,10 +362,9 @@
                             </div>
                             <!-- SIDE-MENU -->
                             <div class="dropdown d-flex profile-1">
-                                <a href="javascript:void(0)" data-bs-toggle="dropdown"
-                                    class="nav-link leading-none d-flex">
-                                    <img src="/sparic/build/assets/images/users/male/15.jpg" alt="profile-user"
-                                        class="avatar  profile-user brround cover-image">
+                                <a href="javascript:void(0)" data-bs-toggle="dropdown" class="nav-link leading-none d-flex">
+                                    <img src="/sparic/build/assets/images/users/male/15.jpg" alt="profile-user" class="avatar profile-user brround cover-image d-none">
+                                    <i class="fe fe-user" style="font-size: 2em;"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
                                     data-bs-popper="none">

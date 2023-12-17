@@ -19,6 +19,45 @@ class UsersController extends Controller
         return view('backend.pages.users.allUsers', compact('allUsers'));
     }
 
+    public function activeUsers()
+    {
+        $allUsers = DB::table('users')->where('status', 1)->orderBy('id','DESC');
+
+        //status-chart
+        $activeCount = $allUsers->count();
+        $pendingCount = DB::table('users')->where('status', 0)->count();
+        $bannedCount = DB::table('users')->whereNotNull('no_of_banned_days')->count();
+        $allUsers = $allUsers->get();
+        
+        return view('backend.pages.users.activeUsers', compact('allUsers', 'activeCount', 'pendingCount', 'bannedCount'));
+    }
+
+    public function pendingUsers()
+    {
+        $allUsers = DB::table('users')->where('status', 0)->orderBy('id','DESC');
+
+        //status-chart
+        $activeCount = DB::table('users')->where('status', 1)->count();
+        $pendingCount = $allUsers->count();
+        $bannedCount = DB::table('users')->whereNotNull('no_of_banned_days')->count();
+        $allUsers = $allUsers->get();
+        
+        return view('backend.pages.users.pendingUsers', compact('allUsers', 'activeCount', 'pendingCount', 'bannedCount'));
+    }
+
+    public function bannedUsers()
+    {
+        $allUsers = DB::table('users')->whereNotNull('no_of_banned_days')->orderBy('id','DESC');
+
+        //status-chart
+        $activeCount = DB::table('users')->where('status', 1)->count();
+        $pendingCount = DB::table('users')->where('status', 0)->count();
+        $bannedCount = $allUsers->count();
+        $allUsers = $allUsers->get();
+        
+        return view('backend.pages.users.bannedUsers', compact('allUsers', 'activeCount', 'pendingCount', 'bannedCount'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */

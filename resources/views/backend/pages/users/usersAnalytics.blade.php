@@ -34,7 +34,7 @@
                                 <i class="fa fa-star"></i>
                             </span>
                         </a>
-                        <a href="https://laravelui.spruko.com/sparic/lockscreen" class="btn bg-primary-transparent text-primary mx-2 btn-sm"
+                        <a href="javascript:void(0);" class="btn bg-primary-transparent text-primary mx-2 btn-sm"
                             data-bs-toggle="tooltip" title="" data-bs-placement="bottom"
                             data-bs-original-title="lock">
                             <span>
@@ -77,6 +77,7 @@
                 </div>
                 <!-- COL END -->
 
+                <!-- BY STATUS ACTIVE, PENDING BANNED -->
                 <div class="col-12 col-sm-4">
                     <div class="card">
                         <div class="card-header border-bottom ">

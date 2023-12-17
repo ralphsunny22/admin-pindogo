@@ -23,6 +23,9 @@ Route::get('/', [LandingController::class, 'landing'])->name('landing');
 //users
 Route::group(['prefix' => 'user'], function(){
     Route::get('/all', [UsersController::class, 'allUsers'])->name('allUsers');
+    Route::get('/active', [UsersController::class, 'activeUsers'])->name('activeUsers');
+    Route::get('/pending', [UsersController::class, 'pendingUsers'])->name('pendingUsers');
+    Route::get('/banned', [UsersController::class, 'bannedUsers'])->name('bannedUsers');
     Route::get('/{userId}', [UsersController::class, 'singleUser'])->name('singleUser');
     Route::get('/edit/{userId}', [UsersController::class, 'editUser'])->name('editUser');
     Route::post('/edit/{userId}', [UsersController::class, 'editUserPost'])->name('editUserPost');

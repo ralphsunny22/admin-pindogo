@@ -23,22 +23,16 @@
                         <a href="javascript:void(0);" class="btn bg-secondary-transparent text-secondary btn-sm"
                             data-bs-toggle="tooltip" title="" data-bs-placement="bottom"
                             data-bs-original-title="Rating">
-                            <span>
-                                <i class="fa fa-star"></i>
-                            </span>
+                            <span><i class="fa fa-star"></i></span>
                         </a>
-                        <a href="https://laravelui.spruko.com/sparic/lockscreen" class="btn bg-primary-transparent text-primary mx-2 btn-sm"
+                        <a href="javascript:void(0);" class="btn bg-primary-transparent text-primary mx-2 btn-sm"
                             data-bs-toggle="tooltip" title="" data-bs-placement="bottom"
                             data-bs-original-title="lock">
-                            <span>
-                                <i class="fa fa-lock"></i>
-                            </span>
+                            <span><i class="fa fa-lock"></i></span>
                         </a>
                         <a href="javascript:void(0);" class="btn bg-warning-transparent text-warning btn-sm" data-bs-toggle="tooltip"
                             title="" data-bs-placement="bottom" data-bs-original-title="Add New">
-                            <span>
-                                <i class="fa fa-plus"></i>
-                            </span>
+                            <span><i class="fa fa-plus"></i></span>
                         </a>
                     </div>
                 </div>
@@ -122,7 +116,7 @@
                 <!-- col end -->
 
                 <!-- Total Groups -->
-                <div class="col-sm-12 col-lg-4 col-md-4 col-xxl-3">
+                <div class="col-sm-12 col-lg-4 col-md-4 col-xxl-3 d-none">
                     <div class="card overflow-hidden">
                         <div class="card-body">
                             <div class="row">
@@ -146,7 +140,7 @@
                 <!-- col end -->
 
                 <!-- Active Groups -->
-                <div class="col-sm-12 col-lg-4 col-md-4 col-xxl-3">
+                <div class="col-sm-12 col-lg-4 col-md-4 col-xxl-3 d-none"">
                     <div class="card overflow-hidden">
                         <div class="card-body">
                             <div class="row">
@@ -170,7 +164,7 @@
                 <!-- col end -->
 
                 <!-- Pending Groups -->
-                <div class="col-sm-12 col-lg-4 col-md-4 col-xxl-3">
+                <div class="col-sm-12 col-lg-4 col-md-4 col-xxl-3 d-none"">
                     <div class="card overflow-hidden">
                         <div class="card-body">
                             <div class="row">
@@ -194,7 +188,7 @@
                 <!-- col end -->
 
                 <!-- Total Paid Groups -->
-                <div class="col-sm-12 col-lg-4 col-md-4 col-xxl-3">
+                <div class="col-sm-12 col-lg-4 col-md-4 col-xxl-3 d-none"">
                     <div class="card overflow-hidden">
                         <div class="card-body">
                             <div class="row">
@@ -218,7 +212,7 @@
                 <!-- col end -->
 
                 <!-- Active Paid Groups -->
-                <div class="col-sm-12 col-lg-4 col-md-4 col-xxl-3">
+                <div class="col-sm-12 col-lg-4 col-md-4 col-xxl-3 d-none"">
                     <div class="card overflow-hidden">
                         <div class="card-body">
                             <div class="row">
@@ -242,7 +236,7 @@
                 <!-- col end -->
 
                 <!-- Active Paid Groups -->
-                <div class="col-sm-12 col-lg-4 col-md-4 col-xxl-3">
+                <div class="col-sm-12 col-lg-4 col-md-4 col-xxl-3 d-none"">
                     <div class="card overflow-hidden">
                         <div class="card-body">
                             <div class="row">
@@ -265,7 +259,7 @@
                 </div>
                 <!-- col end -->
 
-                <div class="col-sm-12 col-lg-6 col-md-6 col-xxl-3">
+                <div class="col-sm-12 col-lg-6 col-md-6 col-xxl-3 d-none"">
                     <div class="card overflow-hidden">
                         <div class="card-body">
                             <div class="row">
@@ -293,7 +287,7 @@
                     </div>
                 </div>
                 <!-- col end -->
-                <div class="col-sm-12 col-lg-6 col-md-6 col-xxl-3">
+                <div class="col-sm-12 col-lg-6 col-md-6 col-xxl-3 d-none"">
                     <div class="card overflow-hidden">
                         <div class="card-body">
                             <div class="row">
@@ -321,7 +315,8 @@
                     </div>
                 </div>
                 <!-- col end -->
-                <div class="col-sm-12 col-lg-6 col-md-6 col-xxl-3">
+
+                <div class="col-sm-12 col-lg-6 col-md-6 col-xxl-3 d-none"">
                     <div class="card overflow-hidden">
                         <div class="card-body">
                             <div class="row">
@@ -353,7 +348,7 @@
             <!-- END ROW -->
 
             <!-- ROW -->
-            <div class="row">
+            <div class="row d-none"">
                 <div class="col-xxl-7 col-lg-12 col-md-12">
                     <div class="card overflow-hidden">
                         <div class="row">
@@ -488,7 +483,7 @@
             <!-- END ROW -->
 
             <!-- ROW -->
-            <div class="row row-deck">
+            <div class="row row-deck d-none"">
                 <div class="col-xxl-6 col-xl-12 col-lg-12">
                     <div class="card d-inline-block overflow-hidden">
                         <div
@@ -706,7 +701,7 @@
             <!-- END ROW -->
 
             <!-- ROW -->
-            <div class="row">
+            <div class="row d-none"">
                 <div class="col-12 col-sm-12">
                     <div class="card">
                         <div class="card-header border-bottom ">

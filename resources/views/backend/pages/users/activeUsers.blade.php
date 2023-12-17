@@ -1,5 +1,5 @@
 @extends('backend.layouts.design')
-@section('title')All Users @endsection
+@section('title')Active Users @endsection
 @section('extra_css')
 <style>
 .app-content {
@@ -24,7 +24,8 @@
                 <ol class="breadcrumb mb-sm-0 mb-3">
                     <!-- breadcrumb -->
                     <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">All Users</li>
+                    <li class="breadcrumb-item" aria-current="page"><a href="{{ route('allUsers') }}">Users</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Active</li>
                 </ol><!-- End breadcrumb -->
 
                 <!-- rhs breadcrumb -->
@@ -37,7 +38,7 @@
                                 <i class="fa fa-star"></i>
                             </span>
                         </a>
-                        <a href="javascript:void(0);" class="btn bg-primary-transparent text-primary mx-2 btn-sm"
+                        <a href="/" class="btn bg-primary-transparent text-primary mx-2 btn-sm"
                             data-bs-toggle="tooltip" title="" data-bs-placement="bottom"
                             data-bs-original-title="lock">
                             <span>
@@ -70,7 +71,7 @@
                 <div class="col-12 col-sm-12">
                     <div class="card">
                         <div class="card-header border-bottom ">
-                            <h3 class="card-title mb-0">All Users</h3>
+                            <h3 class="card-title mb-0">Active Users</h3>
                             <div class="dropdown ms-auto">
                                 <button class="btn btn-outline-default btn-sm fw-bold text-primary fs-12 d-flex align-items-center dropdown-toggle"
                                     type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
@@ -176,6 +177,26 @@
             </div>
             <!-- END ROW -->
 
+            <!-- ROW -->
+            <div class="row">
+
+                <!-- BY STATUS ACTIVE, PENDING BANNED -->
+                <div class="col-12 col-sm-12">
+                    <div class="card">
+                        <div class="card-header border-bottom ">
+                            <h3 class="card-title mb-0">Users By Status</h3>
+                            
+                        </div>
+                        <div class="card-body">
+                            <canvas class="doughnutStatus-canvas"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <!-- COL END -->
+
+            </div>
+            <!-- END ROW -->
+
 
         </div>
     </div>
@@ -183,4 +204,48 @@
 
 @endsection
 
-@section('extra_js')@endsection
+@section('extra_js')
+<!--status counts--->
+<script>
+    window.chartColors = {
+        success: "rgb(25, 135, 84)",
+        primary: "rgb(13, 110, 253)",
+        danger: "rgb(220, 53, 69)",
+        warning: "rgb(255, 193, 7)",
+        info: "rgb(13, 202, 240)",
+        secondary: "rgb(108, 117, 125)",
+        purple: "rgb(134, 0, 179)",
+        grey: "rgb(117, 117, 163)",
+    };
+
+    $(function () {
+        //status starting
+        var doughnutStatusCanvas = $(".doughnutStatus-canvas");
+
+        var activeCount = {{ $activeCount }};
+        var pendingCount = {{ $pendingCount }};
+        var bannedCount = {{ $bannedCount }};
+
+        const dataStatus = {
+            labels: ['Active', 'Pending', 'Banned'],
+            datasets: [{
+                label: 'Users By Status',
+                data: [activeCount, pendingCount, bannedCount],
+                backgroundColor: [
+                    window.chartColors.success,
+                    window.chartColors.danger,
+                    window.chartColors.warning
+                ],
+                hoverOffset: 4
+            }]
+        };
+
+        var chart = new Chart(doughnutStatusCanvas, {
+            type: 'doughnut',
+            data: dataStatus,
+        });
+        //status ends
+        //////////////////////////////////////////
+    });
+</script>
+@endsection
